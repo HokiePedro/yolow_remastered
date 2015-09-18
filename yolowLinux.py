@@ -9,18 +9,22 @@ import sys
 import time
 import commands
 
+user = None
+limit = 0
+
 
 root = tk.Tk()
 
 def getName():
-    print entry1.get()
-    return entry1.get()
+    user = entry1.get()
+    print user
+    return user
 
 def getPercent():
     print entry2.get()
     storPercent = entry2.get()
-    percentNum = float(storPercent)
-    getBattery(getName(),percentNum)
+    limit = float(storPercent)
+    getBattery()
 
 
 l1 = tk.Label(root, text="Username").grid(row=0)
@@ -74,7 +78,7 @@ def setLimit():
     setLim = input("Battery % to get warnings at (1-100) ")
 
 
-def getBattery(user,limit):
+def getBattery():
     choose = True
     status = None
     output = None
@@ -87,6 +91,9 @@ def getBattery(user,limit):
         print status
         print status[1]       
 
+        while(user==None && limit==0):
+            time.sleep(1)
+            print "Awaiting input"
         
         if status[1] == "Charging":
             #do nothiing
